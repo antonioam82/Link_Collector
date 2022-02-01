@@ -10,12 +10,14 @@ class Collector:
     def __init__(self):
         self.root = Tk()
         self.root.title("Link Collector")
-        self.root.geometry("575x650")
+        self.root.geometry("575x649")
 
         currentDir = StringVar()
         currentDir.set(os.getcwd())
 
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
+        self.url = Entry(self.root,width=43,font=("arial",18))
+        self.url.place(x=5,y=26)
 
         self.root.mainloop()
 
