@@ -17,7 +17,8 @@ class Collector:
 
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
         self.url = Entry(self.root,width=43,font=("arial",18))
-        self.url.place(x=5,y=26)
+        self.url.place(x=5,y=35)
+        Button(self.root,text="SAVE",width=79,bg="gray77").place(x=5,y=70)
 
         self.root.mainloop()
 
