@@ -11,6 +11,7 @@ class Collector:
         self.root = Tk()
         self.root.title("Link Collector")
         self.root.geometry("575x649")
+        self.root.configure(bg="gray88")
 
         currentDir = StringVar()
         currentDir.set(os.getcwd())
