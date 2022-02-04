@@ -28,6 +28,9 @@ class Collector:
         self.linkBox.pack()
         self.linkBox.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.linkBox.yview)
+        self.searchEntry = Entry(self.root,font=("arial",14),width=13)
+        self.searchEntry.place(x=363,y=110)
+        Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
         self.root.mainloop()
 
 if __name__=="__main__":
