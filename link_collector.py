@@ -21,7 +21,7 @@ class Collector:
         self.url.place(x=5,y=35)
         Button(self.root,text="SAVE",width=79,bg="gray77").place(x=5,y=70)
         self.canvas = Canvas(self.root,bg="black")
-        self.canvas.place(x=5,y=105)
+        self.canvas.place(x=5,y=110)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
         self.linkBox = Listbox(self.canvas,height=32,width=55)
