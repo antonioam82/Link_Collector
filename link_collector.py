@@ -31,8 +31,10 @@ class Collector:
         self.searchEntry = Entry(self.root,font=("arial",14),width=13)
         self.searchEntry.place(x=363,y=110)
         Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
-        Button(self.root,text="NEW LINK",bg="gray77",width=28,height=2).place(x=363,y=160)
-        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2).place(x=363,y=210)
+        self.numLinks = Label(self.root,text='0 LINKS',bg='black',fg='green',width=25,font=("arial",10))
+        self.numLinks.place(x=363,y=180)
+        Button(self.root,text="NEW LINK",bg="gray77",width=28,height=2).place(x=363,y=210)
+        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2).place(x=363,y=260)
         
         self.root.mainloop()
 
