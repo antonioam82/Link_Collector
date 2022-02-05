@@ -35,6 +35,9 @@ class Collector:
         self.numLinks.place(x=363,y=180)
         Button(self.root,text="NEW LINK",bg="gray77",width=28,height=2).place(x=363,y=210)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2).place(x=363,y=260)
+        Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
+        Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
+        Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=430)
         
         self.root.mainloop()
 
