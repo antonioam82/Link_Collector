@@ -6,6 +6,11 @@ import json
 import webbrowser
 import os
 
+if not "my_link_list.json" in os.listdir():
+    d = {}
+    with open("my_link_list.json", "w") as f:
+        json.dump(d, f)
+
 class Collector:
     def __init__(self):
         self.root = Tk()
