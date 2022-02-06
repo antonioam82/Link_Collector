@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from tkinter import *
 from tkinter import messagebox
+import threading
 import json
 import webbrowser
 import os
@@ -20,10 +21,11 @@ class Collector:
 
         currentDir = StringVar()
         currentDir.set(os.getcwd())
+        my_url = StringVar()
 
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
-        self.url = Entry(self.root,width=43,font=("arial",18))
-        self.url.place(x=5,y=35)
+        self.urlEntry = Entry(self.root,textvariable=my_url,width=43,font=("arial",18))
+        self.urlEntry.place(x=5,y=35)
         Button(self.root,text="SAVE",width=79,bg="gray77").place(x=5,y=70)
         self.canvas = Canvas(self.root,bg="black")
         self.canvas.place(x=5,y=110)
@@ -45,6 +47,9 @@ class Collector:
         Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=430)
         
         self.root.mainloop()
+
+    '''def close_window(self):
+        self.root.destroy()'''
 
 if __name__=="__main__":
     Collector()
