@@ -5,6 +5,8 @@ from tkinter import messagebox
 import threading
 import json
 import webbrowser
+import pyperclip
+import time
 import os
 
 if not "my_link_list.json" in os.listdir():
@@ -21,10 +23,13 @@ class Collector:
 
         currentDir = StringVar()
         currentDir.set(os.getcwd())
-        my_url = StringVar()
+        self.my_url = StringVar()
+
+        with open("my_link_list.json") as f:
+            self.link_list = json.load(f)
 
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
-        self.urlEntry = Entry(self.root,textvariable=my_url,width=43,font=("arial",18))
+        self.urlEntry = Entry(self.root,textvariable=self.my_url,width=43,font=("arial",18))
         self.urlEntry.place(x=5,y=35)
         Button(self.root,text="SAVE",width=79,bg="gray77").place(x=5,y=70)
         self.canvas = Canvas(self.root,bg="black")
@@ -38,9 +43,9 @@ class Collector:
         self.searchEntry = Entry(self.root,font=("arial",14),width=13)
         self.searchEntry.place(x=363,y=110)
         Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
-        self.numLinks = Label(self.root,text='0 LINKS',bg='black',fg='green',width=25,font=("arial",10))
+        self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=180)
-        Button(self.root,text="NEW LINK",bg="gray77",width=28,height=2).place(x=363,y=210)
+        Button(self.root,text="NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2).place(x=363,y=260)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
@@ -48,8 +53,20 @@ class Collector:
         
         self.root.mainloop()
 
-    '''def close_window(self):
-        self.root.destroy()'''
+    def copy_paste(self):
+        messagebox.showinfo("COPY URL","Copy the URL you want.")
+        self.ultima_copia = pyperclip.paste().strip()
+        while True:
+            time.sleep(0.1)
+            self.copia = pyperclip.paste().strip()
+            if self.copia != self.ultima_copia:
+                self.my_url.set(self.copia)
+                self.ultima_copia = self.copia
+                break
+
+    def init_copy(self):
+        t2 = threading.Thread(target=self.copy_paste)
+        t2.start()
 
 if __name__=="__main__":
     Collector()
