@@ -31,7 +31,7 @@ class Collector:
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
         self.urlEntry = Entry(self.root,textvariable=self.my_url,width=43,font=("arial",18))
         self.urlEntry.place(x=5,y=35)
-        Button(self.root,text="SAVE",width=79,bg="gray77").place(x=5,y=70)
+        Button(self.root,text="SAVE",width=79,bg="gray77",command=self.enter_name).place(x=5,y=70)
         self.canvas = Canvas(self.root,bg="black")
         self.canvas.place(x=5,y=110)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
@@ -63,6 +63,21 @@ class Collector:
                 self.my_url.set(self.copia)
                 self.ultima_copia = self.copia
                 break
+
+    def enter_name(self):
+        if self.urlEntry.get() != "":
+            self.window = Tk()
+            self.window.geometry("470x300")
+            self.window.title("Link Name")
+            Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
+            entry_name = Entry(self.window,width=23,font=('arial',20))
+            entry_name.place(x=55,y=90)
+            Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=self.set_name).place(x=195,y=180)
+        
+
+    def set_name(self):
+        #code...
+        self.window.destroy()
 
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
