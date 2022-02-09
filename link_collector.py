@@ -32,7 +32,7 @@ class Collector:
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
         self.urlEntry = Entry(self.root,textvariable=self.my_url,width=43,font=("arial",18))
         self.urlEntry.place(x=5,y=35)
-        Button(self.root,text="SAVE",width=79,bg="gray77",command=self.enter_name).place(x=5,y=70)
+        Button(self.root,text="SAVE URL",width=79,bg="gray77",command=self.enter_name).place(x=5,y=70)
         self.canvas = Canvas(self.root,bg="black")
         self.canvas.place(x=5,y=110)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
