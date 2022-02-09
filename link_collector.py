@@ -51,6 +51,7 @@ class Collector:
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
         Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=430)
+        Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=500)
         
         self.root.mainloop()
 
