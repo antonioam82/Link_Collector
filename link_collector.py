@@ -79,6 +79,7 @@ class Collector:
                 Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=self.set_name).place(x=194,y=180)
             else:
                 messagebox.showwarning("Invalid URL","Enter a valid URL.")
+                self.my_url.set("")
         
 
     def set_name(self):
