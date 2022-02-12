@@ -54,6 +54,8 @@ class Collector:
         Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=500)
         Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=550)
         
+        self.show_list()
+
         self.root.mainloop()
 
     def copy_paste(self):
@@ -82,8 +84,17 @@ class Collector:
             else:
                 messagebox.showwarning("Invalid URL","Enter a valid URL.")
                 self.my_url.set("")
-        
 
+    def show_list(self):
+        if len(self.link_list) > 0:
+            self.my_list = []
+            c = 1
+            for i in self.link_list:
+                self.linkBox.insert(END,(str(c)+"- "+i))
+                self.my_list.append(self.link_list[i])
+                c+=1
+            
+        
     def set_name(self):
         #code...
         self.window.destroy()
