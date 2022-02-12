@@ -10,6 +10,8 @@ import pyperclip
 import time
 import os
 
+#command=lambda:operacion("-")
+
 if not "my_link_list.json" in os.listdir():
     d = {}
     with open("my_link_list.json", "w") as f:
@@ -72,7 +74,6 @@ class Collector:
     def enter_name(self):
         if self.urlEntry.get() != "":
             is_url = self.validate_url(self.urlEntry.get())
-            #print(is_url)
             if is_url:
                 self.window = Tk()
                 self.window.geometry("470x300")
@@ -80,12 +81,13 @@ class Collector:
                 Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
                 entry_name = Entry(self.window,width=23,font=('arial',20))
                 entry_name.place(x=55,y=90)
-                Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=self.set_name).place(x=194,y=180)
+                Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=194,y=180)
             else:
                 messagebox.showwarning("Invalid URL","Enter a valid URL.")
                 self.my_url.set("")
 
     def show_list(self):
+        print(len(self.link_list))
         if len(self.link_list) > 0:
             self.my_list = []
             c = 1
@@ -95,10 +97,16 @@ class Collector:
                 c+=1
             
         
-    def set_name(self):
-        #code...
+    def set_name(self,entry_name):
         self.window.destroy()
-
+        self.linkBox.delete(0,END)
+        print("the get: ",entry_name)
+        self.link_list[entry_name] = self.urlEntry.get()
+        with open("my_link_list.json", "w") as f:
+            json.dump(self.link_list, f)
+        self.show_list()
+        self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+        
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
         t2.start()
