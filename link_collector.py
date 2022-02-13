@@ -10,8 +10,6 @@ import pyperclip
 import time
 import os
 
-#command=lambda:operacion("-")
-
 if not "my_link_list.json" in os.listdir():
     d = {}
     with open("my_link_list.json", "w") as f:
@@ -48,7 +46,7 @@ class Collector:
         Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=180)
-        Button(self.root,text="NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
+        Button(self.root,text="COPY NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2).place(x=363,y=260)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
@@ -87,7 +85,6 @@ class Collector:
                 self.my_url.set("")
 
     def show_list(self):
-        print(len(self.link_list))
         if len(self.link_list) > 0:
             self.my_list = []
             c = 1
@@ -96,11 +93,9 @@ class Collector:
                 self.my_list.append(self.link_list[i])
                 c+=1
             
-        
     def set_name(self,entry_name):
         self.window.destroy()
         self.linkBox.delete(0,END)
-        print("the get: ",entry_name)
         self.link_list[entry_name] = self.urlEntry.get()
         with open("my_link_list.json", "w") as f:
             json.dump(self.link_list, f)
