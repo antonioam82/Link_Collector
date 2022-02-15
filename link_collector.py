@@ -47,7 +47,7 @@ class Collector:
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=180)
         Button(self.root,text="COPY NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
-        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2).place(x=363,y=260)
+        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=260)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
         Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2).place(x=363,y=430)
@@ -101,10 +101,17 @@ class Collector:
             json.dump(self.link_list, f)
         self.show_list()
         self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+
+    def open_page(self):
+        webbrowser.open_new('https://www.google.es/')
         
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
         t2.start()
+
+    def init_task(self):
+        t = threading.Thread(target=self.open_page)
+        t.start()
 
     def validate_url(self,url):
         try:
