@@ -103,15 +103,28 @@ class Collector:
         self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def open_page(self):
-        webbrowser.open_new('https://www.google.es/')
+        webbrowser.open_new('https://www.google.es/')#EJEMPLO
         
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
         t2.start()
 
+    def is_any_selected(self):
+        for i in range(0,self.linkBox.size()):
+            if self.linkBox.selection_includes(i):
+                sel = True
+                break
+        else:
+            sel = False
+        return sel    
+
     def init_task(self):
-        t = threading.Thread(target=self.open_page)
-        t.start()
+        self.any_selected = self.is_any_selected()
+        if self.any_selected:
+            t = threading.Thread(target=self.open_page)
+            t.start()
+        else:
+            messagebox.showwarning("No Link Selected","Select a link to go.")
 
     def validate_url(self,url):
         try:
