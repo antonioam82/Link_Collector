@@ -50,7 +50,7 @@ class Collector:
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=260)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
-        Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2).place(x=363,y=430)
+        Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=430)
         Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=500)
         Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=550)
         
@@ -103,13 +103,13 @@ class Collector:
         self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def open_page(self):
-        #selected_links = []
-        #webbrowser.open_new(self.my_list[self.linkBox.curselection()[0]])
         for i in self.linkBox.curselection():
             webbrowser.open_new(self.my_list[i])
             print(self.my_list[i])
-                #print(i)
-                #print(self.my_list[self.linkBox.curselection()[0]])
+
+    def clear_selection(self):
+        for i in self.linkBox.curselection():
+            self.linkBox.selection_clear(i)
         
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
