@@ -37,7 +37,7 @@ class Collector:
         self.canvas.place(x=5,y=110)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
-        self.linkBox = Listbox(self.canvas,height=32,width=55)
+        self.linkBox = Listbox(self.canvas,height=32,width=55,selectmode='multiple')
         self.linkBox.pack()
         self.linkBox.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.linkBox.yview)
@@ -103,9 +103,13 @@ class Collector:
         self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def open_page(self):
-        #webbrowser.open_new(self.link_list[)#EJEMPLO
-        webbrowser.open_new(self.my_list[self.linkBox.curselection()[0]])
-        print(self.my_list[self.linkBox.curselection()[0]])
+        #selected_links = []
+        #webbrowser.open_new(self.my_list[self.linkBox.curselection()[0]])
+        for i in self.linkBox.curselection():
+            webbrowser.open_new(self.my_list[i])
+            print(self.my_list[i])
+                #print(i)
+                #print(self.my_list[self.linkBox.curselection()[0]])
         
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
