@@ -103,7 +103,9 @@ class Collector:
         self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def open_page(self):
-        webbrowser.open_new('https://www.google.es/')#EJEMPLO
+        #webbrowser.open_new(self.link_list[)#EJEMPLO
+        webbrowser.open_new(self.my_list[self.linkBox.curselection()[0]])
+        print(self.my_list[self.linkBox.curselection()[0]])
         
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
