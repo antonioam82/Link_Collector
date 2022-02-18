@@ -117,16 +117,19 @@ class Collector:
         self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def open_page(self):
-        for i in self.linkBox.curselection():
-            webbrowser.open_new(self.my_list[i])
-            print(self.my_list[i])
+        try:
+            print(nwn)
+            for i in self.linkBox.curselection():
+                webbrowser.open_new(self.my_list[i])
+                print(self.my_list[i])
+        except Exception as e:
+            messagebox.showwarning("Access trouble", str(e))
+            
 
     def clear_selection(self):
-        try:
-            for i in self.linkBox.curselection():
-                self.linkBox.selection_clear(i)
-        except Exception as e:
-            messagebox.showwarning("Access Trouble",str(e))
+        for i in self.linkBox.curselection():
+            self.linkBox.selection_clear(i)
+
         
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
