@@ -25,6 +25,7 @@ class Collector:
         currentDir = StringVar()
         currentDir.set(os.getcwd())
         self.my_url = StringVar()
+        self.selMode = 'normal'
 
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
@@ -37,7 +38,7 @@ class Collector:
         self.canvas.place(x=5,y=110)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
-        self.linkBox = Listbox(self.canvas,height=32,width=55,selectmode='multiple')
+        self.linkBox = Listbox(self.canvas,height=32,width=55)
         self.linkBox.pack()
         self.linkBox.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.linkBox.yview)
@@ -51,8 +52,10 @@ class Collector:
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
         Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=430)
-        Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=500)
-        Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=550)
+        self.selMod = Button(self.root,text="SELECTION MODE: NORMAL",bg="gray77",width=28,height=2,command=self.selection_mode)
+        self.selMod.place(x=363,y=480)
+        Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=550)
+        #Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=550)
         
         self.show_list()
 
@@ -68,6 +71,17 @@ class Collector:
                 self.my_url.set(self.copia)
                 self.ultima_copia = self.copia
                 break
+
+    def selection_mode(self):
+        if self.selMode == 'normal':
+            self.linkBox.configure(selectmode='multiple')
+            self.selMod.configure(text="SELECT MODE: MULTIPLE")
+            self.selMode = 'multiple'
+        else:
+            self.linkBox.configure(selectmode='normal')
+            self.selMod.configure(text="SELECT MODE: NORMAL")
+            self.selMode = 'normal'
+            
 
     def enter_name(self):
         if self.urlEntry.get() != "":
