@@ -75,11 +75,11 @@ class Collector:
     def selection_mode(self):
         if self.selMode == 'normal':
             self.linkBox.configure(selectmode='multiple')
-            self.selMod.configure(text="SELECT MODE: MULTIPLE")
+            self.selMod.configure(text="SELECTION MODE: MULTIPLE")
             self.selMode = 'multiple'
         else:
             self.linkBox.configure(selectmode='normal')
-            self.selMod.configure(text="SELECT MODE: NORMAL")
+            self.selMod.configure(text="SELECTION MODE: NORMAL")
             self.selMode = 'normal'
             
 
