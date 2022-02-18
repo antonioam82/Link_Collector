@@ -122,8 +122,11 @@ class Collector:
             print(self.my_list[i])
 
     def clear_selection(self):
-        for i in self.linkBox.curselection():
-            self.linkBox.selection_clear(i)
+        try:
+            for i in self.linkBox.curselection():
+                self.linkBox.selection_clear(i)
+        except Exception as e:
+            messagebox.showwarning("Access Trouble",str(e))
         
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
