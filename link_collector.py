@@ -29,6 +29,7 @@ class Collector:
 
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
+        print(self.link_list)
 
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
         self.urlEntry = Entry(self.root,textvariable=self.my_url,width=43,font=("arial",18))
@@ -47,10 +48,10 @@ class Collector:
         Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=180)
-        Button(self.root,text="COPY NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
+        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=260)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
-        Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2).place(x=363,y=380)
+        Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=380)
         Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=430)
         self.selMod = Button(self.root,text="SELECTION MODE: NORMAL",bg="gray77",width=28,height=2,command=self.selection_mode)
         self.selMod.place(x=363,y=480)
@@ -71,6 +72,15 @@ class Collector:
                 self.my_url.set(self.copia)
                 self.ultima_copia = self.copia
                 break
+
+    def delete_listbox(self):
+        message = messagebox.askquestion("REMOVING",'Do you want to remove all link list?')
+        if message == "yes":
+            self.link_list = {}
+            with open("my_link_list.json", "w") as f:
+                json.dump(self.link_list, f)
+            self.linkBox.delete(0,END)
+            self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))#rep
 
     def selection_mode(self):
         if self.selMode == 'normal':
@@ -118,7 +128,6 @@ class Collector:
 
     def open_page(self):
         try:
-            print(nwn)
             for i in self.linkBox.curselection():
                 webbrowser.open_new(self.my_list[i])
                 print(self.my_list[i])
