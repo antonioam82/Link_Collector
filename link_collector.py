@@ -48,7 +48,7 @@ class Collector:
         Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=180)
-        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
+        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.copy_paste).place(x=363,y=210)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=260)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=380)
