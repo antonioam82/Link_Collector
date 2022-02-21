@@ -74,13 +74,14 @@ class Collector:
                 break
 
     def delete_listbox(self):
-        message = messagebox.askquestion("REMOVING",'Do you want to remove all link list?')
-        if message == "yes":
-            self.link_list = {}
-            with open("my_link_list.json", "w") as f:
-                json.dump(self.link_list, f)
-            self.linkBox.delete(0,END)
-            self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))#rep
+        if self.linkBox.size() > 0:
+            message = messagebox.askquestion("REMOVING",'Do you want to remove all link list?')
+            if message == "yes":
+                self.link_list = {}
+                with open("my_link_list.json", "w") as f:
+                    json.dump(self.link_list, f)
+                self.linkBox.delete(0,END)
+                self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))#rep
 
     def selection_mode(self):
         if self.selMode == 'normal':
