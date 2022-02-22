@@ -102,9 +102,9 @@ class Collector:
                 self.window.geometry("470x300")
                 self.window.title("Link Name")
                 Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
-                entry_name = Entry(self.window,width=23,font=('arial',20))
-                entry_name.place(x=55,y=90)
-                Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=194,y=180)
+                entry_name = Entry(self.window,width=25,font=('arial',20))
+                entry_name.place(x=44,y=90)
+                Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=198,y=180)
             else:
                 messagebox.showwarning("Invalid URL","Enter a valid URL.")
                 self.my_url.set("")
@@ -140,10 +140,6 @@ class Collector:
         for i in self.linkBox.curselection():
             self.linkBox.selection_clear(i)
 
-        
-    def init_copy(self):
-        t2 = threading.Thread(target=self.copy_paste)
-        t2.start()
 
     def is_any_selected(self):
         for i in range(0,self.linkBox.size()):
