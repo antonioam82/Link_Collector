@@ -48,7 +48,7 @@ class Collector:
         Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=180)
-        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.copy_paste).place(x=363,y=210)
+        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=260)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=380)
@@ -92,6 +92,18 @@ class Collector:
             self.linkBox.configure(selectmode='normal')
             self.selMod.configure(text="SELECTION MODE: NORMAL")
             self.selMode = 'normal'
+
+    def set_default_name(self):
+        n = 0
+        name = ""
+        for i in self.link_list.keys():
+            if "new_link" in i:
+                n+=1
+        if n > 0:
+            name = "new_link"+str(n)
+        else:
+            name = "new_link"
+        return name
             
 
     def enter_name(self):
@@ -119,13 +131,14 @@ class Collector:
                 c+=1
             
     def set_name(self,entry_name):
-        self.window.destroy()
-        self.linkBox.delete(0,END)
-        self.link_list[entry_name] = self.urlEntry.get()
-        with open("my_link_list.json", "w") as f:
-            json.dump(self.link_list, f)
-        self.show_list()
-        self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+        if entry_name != "": #and self.urlEntry.get() != "":###
+            self.window.destroy()
+            self.linkBox.delete(0,END)
+            self.link_list[entry_name] = self.urlEntry.get()
+            with open("my_link_list.json", "w") as f:
+                json.dump(self.link_list, f)
+            self.show_list()
+            self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def open_page(self):
         try:
@@ -157,6 +170,10 @@ class Collector:
             t.start()
         else:
             messagebox.showwarning("No Link Selected","Select a link to go.")
+
+    def init_copy(self):
+        tc = threading.Thread(target=self.copy_paste)
+        tc.start()
 
     def validate_url(self,url):
         try:
