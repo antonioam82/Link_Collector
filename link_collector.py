@@ -92,20 +92,7 @@ class Collector:
             self.linkBox.configure(selectmode='normal')
             self.selMod.configure(text="SELECTION MODE: NORMAL")
             self.selMode = 'normal'
-
-    def set_default_name(self):
-        n = 0
-        name = ""
-        for i in self.link_list.keys():
-            if "new_link" in i:
-                n+=1
-        if n > 0:
-            name = "new_link"+str(n)
-        else:
-            name = "new_link"
-        return name
             
-
     def enter_name(self):
         if self.urlEntry.get() != "":
             is_url = self.validate_url(self.urlEntry.get())
