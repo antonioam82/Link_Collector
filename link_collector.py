@@ -122,10 +122,13 @@ class Collector:
             self.window.destroy()
             self.linkBox.delete(0,END)
             self.link_list[entry_name] = self.urlEntry.get()
-            with open("my_link_list.json", "w") as f:
-                json.dump(self.link_list, f)
+            self.update_json()
             self.show_list()
             self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+
+    def update_json(self):
+        with open("my_link_list.json", "w") as f:
+            json.dump(self.link_list, f)
 
     def remove_link(self):
         any_selected = self.is_any_selected()
@@ -135,8 +138,7 @@ class Collector:
                 for i in self.linkBox.curselection():
                     del self.link_list[self.get_key(self.my_list[i])]
                 self.linkBox.delete(0,END)
-                with open("my_link_list.json", "w") as f:
-                    json.dump(self.link_list, f)
+                self.update_json()
                 self.show_list()
                 self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
