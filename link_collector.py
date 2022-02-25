@@ -50,7 +50,7 @@ class Collector:
         self.numLinks.place(x=363,y=180)
         Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=260)
-        Button(self.root,text="DELETE",bg="gray77",width=28,height=2).place(x=363,y=330)
+        Button(self.root,text="DELETE",bg="gray77",width=28,height=2,command=self.remove_link).place(x=363,y=330)
         Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=380)
         Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=430)
         self.selMod = Button(self.root,text="SELECTION MODE: NORMAL",bg="gray77",width=28,height=2,command=self.selection_mode)
@@ -126,6 +126,20 @@ class Collector:
                 json.dump(self.link_list, f)
             self.show_list()
             self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+
+    def remove_link(self):
+        for i in self.linkBox.curselection():
+            del self.link_list[self.get_key(self.my_list[i])]
+            self.linkBox.delete(0,END)
+        with open("my_link_list.json", "w") as f:
+            json.dump(self.link_list, f)
+        self.show_list()
+        self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+
+    def get_key(self,val):
+        for key, value in self.link_list.items():
+            if val == value:
+                return key
 
     def open_page(self):
         try:
