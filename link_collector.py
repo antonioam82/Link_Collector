@@ -128,13 +128,17 @@ class Collector:
             self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def remove_link(self):
-        for i in self.linkBox.curselection():
-            del self.link_list[self.get_key(self.my_list[i])]
-            self.linkBox.delete(0,END)
-        with open("my_link_list.json", "w") as f:
-            json.dump(self.link_list, f)
-        self.show_list()
-        self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+        any_selected = self.is_any_selected()
+        if any_selected:
+            message = messagebox.askquestion("REMOVE LINK",'Delete selected link/s from link list?')
+            if message == "yes":
+                for i in self.linkBox.curselection():
+                    del self.link_list[self.get_key(self.my_list[i])]
+                self.linkBox.delete(0,END)
+                with open("my_link_list.json", "w") as f:
+                    json.dump(self.link_list, f)
+                self.show_list()
+                self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def get_key(self,val):
         for key, value in self.link_list.items():
