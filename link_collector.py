@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 from urllib.parse import urlparse
 import threading
 import json
@@ -29,7 +29,6 @@ class Collector:
 
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
-        print(self.link_list)
 
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
         self.urlEntry = Entry(self.root,textvariable=self.my_url,width=43,font=("arial",18))
@@ -55,8 +54,8 @@ class Collector:
         Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=430)
         self.selMod = Button(self.root,text="SELECTION MODE: NORMAL",bg="gray77",width=28,height=2,command=self.selection_mode)
         self.selMod.place(x=363,y=480)
-        Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=550)
-        #Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2).place(x=363,y=550)
+        #Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=550)
+        Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2,command=self.write_doc).place(x=363,y=550)
         
         self.show_list()
 
@@ -78,8 +77,7 @@ class Collector:
             message = messagebox.askquestion("REMOVING",'Do you want to remove all link list?')
             if message == "yes":
                 self.link_list = {}
-                with open("my_link_list.json", "w") as f:
-                    json.dump(self.link_list, f)
+                self.update_json()
                 self.linkBox.delete(0,END)
                 self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))#rep
 
@@ -177,6 +175,18 @@ class Collector:
             t.start()
         else:
             messagebox.showwarning("No Link Selected","Select a link to go.")
+
+    def write_doc(self):
+        doc = filedialog.asksaveasfilename(initialdir="/",
+              title="Save as", initialfile="saved links",defaultextension=".txt")
+        if doc != "":
+            new_file = open(doc,"w")
+            lines = ("SAVED LINKS:\n\n")
+            for key, value in self.link_list.items():
+                new_file.write("{}: {}\n\n".format(key, value))
+            new_file.close()
+            messagebox.showinfo("Saved","Text document saved correctly.")
+
 
     def init_copy(self):
         tc = threading.Thread(target=self.copy_paste)
