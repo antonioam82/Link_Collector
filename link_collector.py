@@ -182,7 +182,7 @@ class Collector:
                   title="Save as", initialfile="saved links",defaultextension=".txt")
             if doc != "":
                 new_file = open(doc,"w")
-                lines = ("SAVED LINKS:\n\n")
+                new_file.write("SAVED LINKS:\n\n")
                 for key, value in self.link_list.items():
                     new_file.write("{}: {}\n\n".format(key, value))
                 new_file.close()
