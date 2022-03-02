@@ -26,6 +26,7 @@ class Collector:
         currentDir.set(os.getcwd())
         self.my_url = StringVar()
         self.selMode = 'normal'
+        self.search = StringVar()
 
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
@@ -42,20 +43,22 @@ class Collector:
         self.linkBox.pack()
         self.linkBox.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.linkBox.yview)
-        self.searchEntry = Entry(self.root,font=("arial",14),width=13)
+        self.searchEntry = Entry(self.root,textvariable=self.search,font=("arial",14),width=13)
         self.searchEntry.place(x=363,y=110)
-        Button(self.root,text="SEARCH",bg="gray77").place(x=513,y=110)
+        Button(self.root,text="SEARCH",bg="gray77",command=self.search_name).place(x=513,y=110)
+        self.showAll = Button(self.root,state='disabled',text="SHOW ALL LINKS",width=28,command=self.show_all)
+        self.showAll.place(x=363,y=138)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
-        self.numLinks.place(x=363,y=180)
-        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=210)
-        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=260)
-        Button(self.root,text="DELETE",bg="gray77",width=28,height=2,command=self.remove_link).place(x=363,y=330)
-        Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=380)
-        Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=430)
+        self.numLinks.place(x=363,y=215)
+        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=245)
+        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=295)
+        Button(self.root,text="DELETE",bg="gray77",width=28,height=2,command=self.remove_link).place(x=363,y=365)
+        Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=415)
+        Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=465)
         self.selMod = Button(self.root,text="SELECTION MODE: NORMAL",bg="gray77",width=28,height=2,command=self.selection_mode)
-        self.selMod.place(x=363,y=480)
+        self.selMod.place(x=363,y=515)
         #Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=550)
-        Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2,command=self.write_doc).place(x=363,y=550)
+        Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2,command=self.write_doc).place(x=363,y=585)#35
         
         self.show_list()
 
@@ -71,6 +74,13 @@ class Collector:
                 self.my_url.set(self.copia)
                 self.ultima_copia = self.copia
                 break
+
+    def show_all(self):
+        self.linkBox.delete(0,END)
+        with open("my_link_list.json") as f:
+            self.link_list = json.load(f)
+        self.show_list()
+        self.showAll.configure(state='disabled')
 
     def delete_listbox(self):
         if self.linkBox.size() > 0:
@@ -106,6 +116,17 @@ class Collector:
                 messagebox.showwarning("Invalid URL","Enter a valid URL.")
                 self.my_url.set("")
 
+    def search_name(self):
+        c = 0
+        self.my_list = []
+        self.linkBox.delete(0,END)
+        for i in self.link_list.keys():
+            if self.searchEntry.get() in i:
+                self.linkBox.insert(END,(str(c)+"- "+i))
+                self.my_list.append(self.link_list[i])
+                c+=1
+        self.showAll.configure(state='normal') 
+
     def show_list(self):
         if len(self.link_list) > 0:
             self.my_list = []
@@ -114,6 +135,7 @@ class Collector:
                 self.linkBox.insert(END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
+            #print(self.link_list.keys())
             
     def set_name(self,entry_name):
         if entry_name != "": #and self.urlEntry.get() != "":###
@@ -148,8 +170,9 @@ class Collector:
     def open_page(self):
         try:
             for i in self.linkBox.curselection():
+                print(i)
                 webbrowser.open_new(self.my_list[i])
-                print(self.my_list[i])
+                #print(self.my_list[i])
         except Exception as e:
             messagebox.showwarning("Access trouble", str(e))
             
