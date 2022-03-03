@@ -49,7 +49,7 @@ class Collector:
         self.showAll = Button(self.root,state='disabled',text="SHOW ALL LINKS",width=28,command=self.show_all)
         self.showAll.place(x=363,y=138)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
-        self.numLinks.place(x=363,y=215)
+        self.numLinks.place(x=363,y=205)
         Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=245)
         Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=295)
         Button(self.root,text="DELETE",bg="gray77",width=28,height=2,command=self.remove_link).place(x=363,y=365)
