@@ -57,7 +57,6 @@ class Collector:
         Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=465)
         self.selMod = Button(self.root,text="SELECTION MODE: NORMAL",bg="gray77",width=28,height=2,command=self.selection_mode)
         self.selMod.place(x=363,y=515)
-        #Button(self.root,text="SAVE HTML FILE",bg="gray77",width=28,height=2).place(x=363,y=550)
         Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2,command=self.write_doc).place(x=363,y=585)#35
         
         self.show_list()
@@ -121,7 +120,7 @@ class Collector:
         self.my_list = []
         self.linkBox.delete(0,END)
         for i in self.link_list.keys():
-            if self.searchEntry.get() in i:
+            if self.searchEntry.get().lower() in i.lower():
                 self.linkBox.insert(END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
@@ -135,10 +134,9 @@ class Collector:
                 self.linkBox.insert(END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
-            #print(self.link_list.keys())
             
     def set_name(self,entry_name):
-        if entry_name != "": #and self.urlEntry.get() != "":###
+        if entry_name != "":
             self.window.destroy()
             self.linkBox.delete(0,END)
             self.link_list[entry_name] = self.urlEntry.get()
@@ -172,7 +170,6 @@ class Collector:
             for i in self.linkBox.curselection():
                 print(i)
                 webbrowser.open_new(self.my_list[i])
-                #print(self.my_list[i])
         except Exception as e:
             messagebox.showwarning("Access trouble", str(e))
             
