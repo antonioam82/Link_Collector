@@ -120,7 +120,7 @@ class Collector:
                 self.my_url.set("")
 
     def search_name(self):
-        c = 0
+        c = 1
         self.my_list = []
         self.linkBox.delete(0,END)
         for i in self.link_list.keys():
