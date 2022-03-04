@@ -34,7 +34,8 @@ class Collector:
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
         self.urlEntry = Entry(self.root,textvariable=self.my_url,width=43,font=("arial",18))
         self.urlEntry.place(x=5,y=35)
-        Button(self.root,text="SAVE URL",width=79,bg="gray77",command=self.enter_name).place(x=5,y=70)
+        Button(self.root,text="SAVE URL AS:",width=49,bg="gray77",command=self.enter_name).place(x=5,y=70)#79
+        Button(self.root,text="CLEAR URL",width=28,bg="gray77",command=self.clear_url).place(x=363,y=70)
         self.canvas = Canvas(self.root,bg="black")
         self.canvas.place(x=5,y=110)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
@@ -73,6 +74,9 @@ class Collector:
                 self.my_url.set(self.copia)
                 self.ultima_copia = self.copia
                 break
+            
+    def clear_url(self):
+        self.my_url.set("")
 
     def show_all(self):
         self.linkBox.delete(0,END)
