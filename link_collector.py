@@ -47,7 +47,7 @@ class Collector:
         self.searchEntry = Entry(self.root,textvariable=self.search,font=("arial",14),width=13)
         self.searchEntry.place(x=363,y=110)
         Button(self.root,text="SEARCH",bg="gray77",command=self.search_name).place(x=513,y=110)
-        self.showAll = Button(self.root,state='disabled',text="SHOW ALL LINKS",width=28,command=self.show_all)
+        self.showAll = Button(self.root,text="SHOW ALL LINKS",width=28,command=self.show_all)
         self.showAll.place(x=363,y=138)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=205)
@@ -83,7 +83,7 @@ class Collector:
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
         self.show_list()
-        self.showAll.configure(state='disabled')
+        #self.showAll.configure(state='disabled')
 
     def delete_listbox(self):
         if self.linkBox.size() > 0:
@@ -138,6 +138,7 @@ class Collector:
                 self.linkBox.insert(END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
+            self.showAll.configure(state='disabled') 
             
     def set_name(self,entry_name):
         if entry_name != "":
