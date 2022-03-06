@@ -19,7 +19,7 @@ class Collector:
     def __init__(self):
         self.root = Tk()
         self.root.title("Link Collector")
-        self.root.geometry("575x649")
+        self.root.geometry("575x623")
         self.root.configure(bg="gray88")
 
         currentDir = StringVar()
@@ -40,7 +40,7 @@ class Collector:
         self.canvas.place(x=5,y=110)
         self.scrollbar = Scrollbar(self.canvas,orient=VERTICAL)
         self.scrollbar.pack(side=RIGHT,fill=Y)
-        self.linkBox = Listbox(self.canvas,height=32,width=55)
+        self.linkBox = Listbox(self.canvas,height=31,width=55)# 32 55
         self.linkBox.pack()
         self.linkBox.config(yscrollcommand = self.scrollbar.set)
         self.scrollbar.config(command = self.linkBox.yview)
@@ -50,15 +50,15 @@ class Collector:
         self.showAll = Button(self.root,text="SHOW ALL LINKS",width=28,command=self.show_all)
         self.showAll.place(x=363,y=138)
         self.numLinks = Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
-        self.numLinks.place(x=363,y=205)
-        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=245)
-        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=295)
-        Button(self.root,text="DELETE",bg="gray77",width=28,height=2,command=self.remove_link).place(x=363,y=365)
-        Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=415)
-        Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=465)
+        self.numLinks.place(x=363,y=195)#205
+        Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=230)#245
+        Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=280)#295
+        Button(self.root,text="DELETE",bg="gray77",width=28,height=2,command=self.remove_link).place(x=363,y=350)#365
+        Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=400)#415
+        Button(self.root,text="CLEAR SELECTION",bg="gray77",width=28,height=2,command=self.clear_selection).place(x=363,y=450)#465
         self.selMod = Button(self.root,text="SELECTION MODE: NORMAL",bg="gray77",width=28,height=2,command=self.selection_mode)
-        self.selMod.place(x=363,y=515)
-        Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2,command=self.write_doc).place(x=363,y=585)#35
+        self.selMod.place(x=363,y=500)#515
+        Button(self.root,text="SAVE LIST",bg="gray77",width=28,height=2,command=self.write_doc).place(x=363,y=570)#575
         
         self.show_list()
 
@@ -229,4 +229,5 @@ class Collector:
 
 if __name__=="__main__":
     Collector()
+
     
