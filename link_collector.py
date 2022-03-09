@@ -162,7 +162,10 @@ class Collector:
                     del self.link_list[self.get_key(self.my_list[i])]
                 self.linkBox.delete(0,END)
                 self.update_json()
-                self.show_list()
+                if self.showAll["state"]=='disabled':########################
+                    self.show_list()
+                else:
+                    self.search_name()########################
                 self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
 
     def get_key(self,val):
