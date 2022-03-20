@@ -4,9 +4,11 @@ from tkinter import *
 from tkinter import messagebox, filedialog
 from urllib.parse import urlparse
 import threading
+from prettytable import PrettyTable
 import json
 import webbrowser
 import pyperclip
+import pprint
 import time
 import os
 
@@ -204,17 +206,27 @@ class Collector:
         else:
             messagebox.showwarning("No Link Selected","Select a link to go.")
 
+    def create_list_of_lists(self,dic):
+        listas = []
+        for k, v in dic.items():
+            lista = []
+            lista.append(k)
+            lista.append(v)
+            listas.append(lista)
+        return listas
+            
     def write_doc(self):
         if self.linkBox.size() > 0:
             doc = filedialog.asksaveasfilename(initialdir="/",
                   title="Save as", initialfile="saved links",defaultextension=".txt")
             if doc != "":
                 new_file = open(doc,"w")
-                new_file.write("SAVED LINKS:\n\n")
-                for key, value in self.link_list.items():
-                    new_file.write("{}: {}\n\n".format(key, value))
+                x = PrettyTable()
+                x.field_names = ["Link Name", "URL"]
+                content = self.create_list_of_lists(self.link_list)
+                x.add_rows(content)
+                new_file.write(str(x))
                 new_file.close()
-                messagebox.showinfo("Saved","Text document saved correctly.")
         else:
             messagebox.showwarning("NO ITEMS","There's nothing to save.")
 
