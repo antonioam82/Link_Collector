@@ -32,6 +32,7 @@ class Collector:
 
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
+            #print(self.link_list)
 
         Entry(self.root,textvariable=currentDir,width=95).place(x=0,y=0)
         self.urlEntry = Entry(self.root,textvariable=self.my_url,width=43,font=("arial",18))
@@ -108,18 +109,22 @@ class Collector:
             
     def enter_name(self):
         if self.urlEntry.get() != "":
-            is_url = self.validate_url(self.urlEntry.get())
-            if is_url:
-                self.window = Tk()
-                self.window.geometry("470x300")
-                self.window.title("Link Name")
-                Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
-                entry_name = Entry(self.window,width=25,font=('arial',20))
-                entry_name.place(x=44,y=90)
-                Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=198,y=180)
+            if self.urlEntry.get() not in self.link_list.values():
+                is_url = self.validate_url(self.urlEntry.get())
+                if is_url:
+                    self.window = Tk()
+                    self.window.geometry("470x300")
+                    self.window.title("Link Name")
+                    Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
+                    entry_name = Entry(self.window,width=25,font=('arial',20))
+                    entry_name.place(x=44,y=90)
+                    Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=198,y=180)
+
+                else:
+                    messagebox.showwarning("Invalid URL","Enter a valid URL.")
+                    self.my_url.set("")
             else:
-                messagebox.showwarning("Invalid URL","Enter a valid URL.")
-                self.my_url.set("")
+                messagebox.showwarning("ALREADY SAVED","The URL provided is already saved.")            
 
     def search_name(self):
         c = 1
