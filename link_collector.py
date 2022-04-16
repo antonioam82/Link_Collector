@@ -124,7 +124,8 @@ class Collector:
                     messagebox.showwarning("Invalid URL","Enter a valid URL.")
                     self.my_url.set("")
             else:
-                messagebox.showwarning("ALREADY SAVED","The URL provided is already saved.")            
+                value_name = self.get_key(self.urlEntry.get())
+                messagebox.showwarning("ALREADY SAVED","The URL provided is already saved as \'{}\'".format(value_name))            
 
     def search_name(self):
         c = 1
@@ -239,6 +240,11 @@ class Collector:
     def init_copy(self):
         tc = threading.Thread(target=self.copy_paste)
         tc.start()
+
+    def get_key(self,val):
+        for key, value in self.link_list.items():
+            if val == value:
+                return key
 
     def validate_url(self,url):
         try:
