@@ -82,7 +82,7 @@ class Collector:
         self.my_url.set("")
 
     def show_all(self):
-        self.linkBox.delete(0,END)
+        self.linkBox.delete(0,tk.END)
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
         self.show_list()
@@ -94,7 +94,7 @@ class Collector:
             if message == "yes":
                 self.link_list = {}
                 self.update_json()
-                self.linkBox.delete(0,END)
+                self.linkBox.delete(0,tk.END)
                 self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))#rep
 
     def selection_mode(self):
@@ -115,10 +115,10 @@ class Collector:
                     self.window = tk.Tk()######
                     self.window.geometry("470x300")
                     self.window.title("Link Name")
-                    Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
-                    entry_name = Entry(self.window,width=25,font=('arial',20))
+                    tk.Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
+                    entry_name = tk.Entry(self.window,width=25,font=('arial',20))
                     entry_name.place(x=44,y=90)
-                    Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=198,y=180)
+                    tk.Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=198,y=180)
 
                 else:
                     messagebox.showwarning("Invalid URL","Enter a valid URL.")
@@ -130,10 +130,10 @@ class Collector:
     def search_name(self):
         c = 1
         self.my_list = []
-        self.linkBox.delete(0,END)
+        self.linkBox.delete(0,tk.END)
         for i in self.link_list.keys():
             if self.searchEntry.get().lower() in i.lower():
-                self.linkBox.insert(END,(str(c)+"- "+i))
+                self.linkBox.insert(tk.END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
         self.showAll.configure(state='normal') 
