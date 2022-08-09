@@ -42,11 +42,15 @@ class Collector:
         self.canvas = tk.Canvas(self.root,bg="black")
         self.canvas.place(x=5,y=110)
         self.scrollbar = tk.Scrollbar(self.canvas,orient=tk.VERTICAL)
+        self.scrollbar2 = tk.Scrollbar(self.canvas,orient=tk.HORIZONTAL)
         self.scrollbar.pack(side=tk.RIGHT,fill=tk.Y)
-        self.linkBox = tk.Listbox(self.canvas,height=31,width=55)# 32 55
+        self.scrollbar2.pack(side=tk.BOTTOM,fill=tk.X)
+        self.linkBox = tk.Listbox(self.canvas,height=30,width=55)# 32 55
         self.linkBox.pack()
         self.linkBox.config(yscrollcommand = self.scrollbar.set)
+        self.linkBox.config(xscrollcommand = self.scrollbar2.set)
         self.scrollbar.config(command = self.linkBox.yview)
+        self.scrollbar2.config(command = self.linkBox.xview)
         self.searchEntry = tk.Entry(self.root,textvariable=self.search,font=("arial",14),width=13)
         self.searchEntry.place(x=363,y=110)
         tk.Button(self.root,text="SEARCH",bg="gray77",command=self.search_name).place(x=513,y=110)
