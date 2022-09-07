@@ -237,6 +237,7 @@ class Collector:
                 x.add_rows(content)
                 new_file.write(x.get_string())
                 new_file.close()
+                messagebox.showinfo("SAVED","File saved successfully")
         else:
             messagebox.showwarning("NO ITEMS","There's nothing to save.")
 
