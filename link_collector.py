@@ -122,6 +122,7 @@ class Collector:
                     tk.Label(self.window,text="ENTER LINK NAME",width=67).place(x=0,y=45)
                     entry_name = tk.Entry(self.window,width=25,font=('arial',20))
                     entry_name.place(x=44,y=90)
+                    entry_name.focus()
                     tk.Button(self.window,text="SET NAME",width=10,height=2,bg="gray77",command=lambda:self.set_name(entry_name.get())).place(x=198,y=180)
 
                 else:
@@ -260,5 +261,6 @@ class Collector:
 
 if __name__=="__main__":
     Collector()
+
 
     
