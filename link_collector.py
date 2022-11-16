@@ -23,6 +23,7 @@ class Collector:
         self.root.title("Link Collector")
         self.root.geometry("575x623")
         self.root.configure(bg="gray88")
+        self.root.resizable(height=tk.FALSE,width=tk.FALSE)
 
         currentDir = tk.StringVar()
         currentDir.set(os.getcwd())
