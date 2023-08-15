@@ -131,7 +131,10 @@ class Collector:
                     self.my_url.set("")
             else:
                 value_name = self.get_key(self.urlEntry.get())
-                messagebox.showwarning("ALREADY SAVED","The URL provided is already saved as \'{}\'".format(value_name))            
+                messagebox.showwarning("ALREADY SAVED","The URL provided is already saved as \'{}\'".format(value_name))
+        else:
+            messagebox.showwarning("NO URL","No URL provided.")
+            
 
     def search_name(self):
         c = 1
