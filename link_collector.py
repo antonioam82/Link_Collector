@@ -59,7 +59,7 @@ class Collector:
         self.showAll.place(x=363,y=138)
         self.numLinks = tk.Label(self.root,text='{} LINKS'.format(len(self.link_list)),bg='black',fg='green',width=25,font=("arial",10))
         self.numLinks.place(x=363,y=195)#205
-        tk.Button(self.root,text="IMPORT NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=230)#245
+        tk.Button(self.root,text="ADD NEW LINK",bg="gray77",width=28,height=2,command=self.init_copy).place(x=363,y=230)#245
         tk.Button(self.root,text="ACCESS",bg="gray77",width=28,height=2,command=self.init_task).place(x=363,y=280)#295
         tk.Button(self.root,text="DELETE",bg="gray77",width=28,height=2,command=self.remove_link).place(x=363,y=350)#365
         tk.Button(self.root,text="DELETE ALL",bg="gray77",width=28,height=2,command=self.delete_listbox).place(x=363,y=400)#415
@@ -245,7 +245,6 @@ class Collector:
                 messagebox.showinfo("SAVED","File saved successfully")
         else:
             messagebox.showwarning("NO ITEMS","There's nothing to save.")
-
 
     def init_copy(self):
         tc = threading.Thread(target=self.copy_paste)
