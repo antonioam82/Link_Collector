@@ -145,6 +145,7 @@ class Collector:
                 self.linkBox.insert(tk.END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
+        self.numLinks.configure(text='{} LINKS'.format(len(self.my_list)))
         self.showAll.configure(state='normal') 
 
     def show_list(self):
@@ -155,6 +156,7 @@ class Collector:
                 self.linkBox.insert(tk.END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
+            self.numLinks.configure(text='{} LINKS'.format(len(self.my_list)))
             self.showAll.configure(state='disabled') 
             
     def set_name(self,entry_name):
@@ -245,6 +247,7 @@ class Collector:
                 messagebox.showinfo("SAVED","File saved successfully")
         else:
             messagebox.showwarning("NO ITEMS","There's nothing to save.")
+
 
     def init_copy(self):
         tc = threading.Thread(target=self.copy_paste)
