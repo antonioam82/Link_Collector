@@ -30,6 +30,7 @@ class Collector:
         self.my_url = tk.StringVar()
         self.selMode = 'normal'
         self.search = tk.StringVar()
+        self.num_result = 0
 
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
@@ -145,7 +146,8 @@ class Collector:
                 self.linkBox.insert(tk.END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
-        self.numLinks.configure(text='{} LINKS'.format(len(self.my_list)))
+        self.num_result = len(self.my_list)
+        self.numLinks.configure(text='{} LINKS'.format(self.num_result))
         self.showAll.configure(state='normal') 
 
     def show_list(self):
