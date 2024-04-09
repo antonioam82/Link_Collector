@@ -31,6 +31,7 @@ class Collector:
         self.selMode = 'normal'
         self.search = tk.StringVar()
         self.num_result = 0
+        self.num_links = 0
 
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
@@ -158,7 +159,8 @@ class Collector:
                 self.linkBox.insert(tk.END,(str(c)+"- "+i))
                 self.my_list.append(self.link_list[i])
                 c+=1
-            self.numLinks.configure(text='{} LINKS'.format(len(self.my_list)))
+            self.num_links = len(self.my_list)
+            self.numLinks.configure(text='{} LINKS'.format(self.num_links))
             self.showAll.configure(state='disabled') 
             
     def set_name(self,entry_name):
@@ -187,7 +189,7 @@ class Collector:
                     self.show_list()
                 else:
                     self.search_name()########################
-                self.numLinks.configure(text='{} LINKS'.format(len(self.link_list)))
+                self.numLinks.configure(text='{} LINKS'.format(self.num_links))
 
     def get_key(self,val):
         for key, value in self.link_list.items():
