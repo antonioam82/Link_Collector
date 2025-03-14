@@ -12,10 +12,12 @@ import pprint
 import time
 import os
 
-if not "my_link_list.json" in os.listdir():
+
+if not os.path.exists("my_link_list.json"):
     d = {}
     with open("my_link_list.json", "w") as f:
         json.dump(d, f)
+    #print("Created file 'my_link_list.json'")
 
 class Collector:
     def __init__(self):
@@ -89,7 +91,6 @@ class Collector:
         self.my_url.set("")
 
     def show_all(self):
-        self.num_result = 0##
         self.linkBox.delete(0,tk.END)
         with open("my_link_list.json") as f:
             self.link_list = json.load(f)
@@ -179,19 +180,16 @@ class Collector:
 
     def remove_link(self):
         any_selected = self.is_any_selected()
-        deleted_counter = 0
         if any_selected:
             message = messagebox.askquestion("REMOVE LINK",'Delete selected link/s from link list?')
             if message == "yes":
                 for i in self.linkBox.curselection():
                     del self.link_list[self.get_key(self.my_list[i])]
-                    deleted_counter += 1
                 self.linkBox.delete(0,tk.END)
                 self.update_json()
                 if self.showAll["state"]=='disabled':########################
                     self.show_list()
                 else:
-                    self.num_result -= deleted_counter
                     self.search_name()########################
                 self.numLinks.configure(text='{} LINKS'.format(self.num_links))
 
